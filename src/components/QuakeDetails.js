@@ -11,6 +11,7 @@ export default class QuakeDetails extends React.Component {
       mapReady: false,
       type: undefined,
       properties: '',
+      felt: 0,
       geometry: '',
       latitude: 0,
       longitude: 0,
@@ -30,6 +31,7 @@ export default class QuakeDetails extends React.Component {
           longitude: data.geometry.coordinates[0],
           latitude: data.geometry.coordinates[1],
           depth: data.geometry.coordinates[2],
+          felt: data.properties.felt,
           id: data.id
         }))
       .catch((error) => {
@@ -61,6 +63,8 @@ export default class QuakeDetails extends React.Component {
               <div>
                 <span className="d-block">Magnitude: {this.state.properties.mag}</span>
                 <span className="d-block">Location: {this.state.properties.place}</span>
+                <span className="d-block">Reports: {this.state.felt}</span>
+
                 <span className="d-block">Latitude: {this.state.latitude}</span>
                 <span className="d-block">Longitude: {this.state.longitude}</span>
                 <span className="d-block">Depth: {this.state.depth}</span>
