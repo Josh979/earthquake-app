@@ -1,18 +1,19 @@
 import React from 'react';
 import Moment from "react-moment";
 import { Link } from "react-router-dom";
-import LatestQuakes from "./LatestQuakes";
+import GoogleMaps from "simple-react-google-maps"
 
 export default class QuakeDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      mapReady: false,
       type: undefined,
       properties: '',
       geometry: '',
-      latitude: '',
-      longitude: '',
+      latitude: 0,
+      longitude: 0,
       id: undefined,
       error: undefined
     };
@@ -23,10 +24,12 @@ export default class QuakeDetails extends React.Component {
       .then(response => response.json())
       .then(data => this.setState(
         {
+          mapReady: true,
           properties: data.properties,
           geometry: data.geometry,
           longitude: data.geometry.coordinates[0],
           latitude: data.geometry.coordinates[1],
+          depth: data.geometry.coordinates[2],
           id: data.id
         }))
       .catch((error) => {
@@ -43,19 +46,29 @@ export default class QuakeDetails extends React.Component {
             <div className="card-body">
               <h4 className="card-title"><strong>Magnitude {this.state.properties.title}</strong></h4>
               <p className="card-text"><em><Moment local={true} format="LLLL">{this.state.properties.time}</Moment></em></p>
-              <img className="img my-3" src="http://via.placeholder.com/500x300?text=Map Placeholder" alt=""/>
-              <h6>Details</h6>
+              <div className="map-container">
+                {this.state.mapReady === true && (
+                  <GoogleMaps
+                    apiKey={"AIzaSyCwjv47oh3ubhPkrWsEm8W58w6b8rnk6mI"}
+                    style={{height: "100%", width: "100%"}}
+                    zoom={8}
+                    center={{lat: this.state.latitude, lng: this.state.longitude}}
+                    markers={{lat: this.state.latitude, lng: this.state.longitude}} //optional
+                  />
+                )}
+              </div>
+              <h5>Quake Details</h5>
               <div>
                 <span className="d-block">Magnitude: {this.state.properties.mag}</span>
                 <span className="d-block">Location: {this.state.properties.place}</span>
                 <span className="d-block">Latitude: {this.state.latitude}</span>
                 <span className="d-block">Longitude: {this.state.longitude}</span>
-
+                <span className="d-block">Depth: {this.state.depth}</span>
               </div>
             </div>
           </div>
         </div>
-        <Link className="btn btn-primary" to="./latest">Return to List</Link>
+        <Link className="btn btn-primary" to="/latest">Return to List</Link>
       </div>
 
     );

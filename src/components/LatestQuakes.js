@@ -2,6 +2,9 @@ import React from 'react';
 import QuakeListItem from "./QuakeListItem";
 import moment from 'moment';
 
+// todo -- Automatically add new earthquakes as they appear, without reloading the page
+// todo -- Save to localstorage and return that originally and if api pull fails
+
 export default class LatestQuakes extends React.Component {
   constructor(props) {
     super(props);
@@ -33,7 +36,7 @@ export default class LatestQuakes extends React.Component {
     return (
       <div>
         <div className="p-3">
-          <h3> Earthquakes Detected Nearby In The Last Hour: <strong>{this.state.features.length}</strong></h3>
+          <h3> Nearby 2.0+ Earthquakes Detected In The Last Hour: <strong>{this.state.features.length}</strong></h3>
           {
             this.state.features.map((quakeData, index) => (
               <QuakeListItem

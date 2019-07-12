@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, NavLink, Route, Switch } from 'react-router-dom';
 
 import Dashboard from '../components/Dashboard';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import HelpPage from '../components/HelpPage';
 import LatestQuakes from '../components/LatestQuakes';
@@ -22,6 +23,8 @@ const AppRouter = () => (
           <Route component={NotFoundPage} />
         </Switch>
       </div>
+      <Footer/>
+
     </div>
   </BrowserRouter>
 );
