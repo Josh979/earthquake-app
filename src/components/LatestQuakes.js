@@ -19,7 +19,7 @@ export default class LatestQuakes extends React.Component {
   componentDidMount() {
     const time = moment().subtract(1,'hour').toISOString();
     console.log(time);
-    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime='+time+'&minmagnitude=2&latitude=34&longitude=-118&maxradius=3')
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime='+time+'&minmagnitude=2&latitude=34&longitude=-118&maxradius=10')
       .then(response => response.json())
       .then(data => this.setState(
         {

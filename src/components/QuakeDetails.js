@@ -51,7 +51,7 @@ export default class QuakeDetails extends React.Component {
               <div className="map-container">
                 {this.state.mapReady === true && (
                   <GoogleMaps
-                    apiKey={"AIzaSyCwjv47oh3ubhPkrWsEm8W58w6b8rnk6mI"}
+                    apiKey={process.env.GOOGLE_API_KEY}
                     style={{height: "100%", width: "100%"}}
                     zoom={8}
                     center={{lat: this.state.latitude, lng: this.state.longitude}}
